@@ -102,13 +102,3 @@ def test_div_matrix_with_eror(mat_1, divizor, exc_type):
 def test_frendly_out_matrix(mat_1, output):
     m1 = str(Matrix(mat_1))
     assert m1 == output
-
-
-
-
-
-
-
-
-
-
