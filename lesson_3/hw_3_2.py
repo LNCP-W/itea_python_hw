@@ -1,3 +1,4 @@
+#Задание тестирует етот класс. Тест в папке 'tests' под названием 'testmatrix'
 class Matrix:
     def __init__(self, mat):
         self.mat = mat
@@ -44,8 +45,10 @@ class Matrix:
 
 m1=Matrix([[1, 2, 3], [2, 3, 4], [3, 5, 6]])
 m2=Matrix([[2, 3, 4], [3, 5, 6], [1, 2, 3]])
-print (m2 + m1)
+m3=m1+m2
+print (m3)
 print (m2 - m1)
 print (m2 * 2)
 print (m2 / 2)
 print(m1)
+print(m1.mat)
