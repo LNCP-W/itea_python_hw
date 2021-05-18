@@ -1,12 +1,15 @@
 # класс оргтехники
 from abc import ABC, abstractmethod
+from uuid import uuid4
+
 
 class OrgTec(ABC):
 
-    def __init__(self, power = 'OFF', soft_version = '1.0', network = 'disconnected'):
-        self.power = power
+    def __init__(self, pwr = 'OFF', soft_version = '1.0', network = 'disconnected'):
+        self.pwr = pwr
         self.soft_version = soft_version
         self.network = network
+        self.id = uuid4()
     
     @abstractmethod
     def on_of():
@@ -20,16 +23,17 @@ class OrgTec(ABC):
     def net_connect():
         pass
 
+
 class Printer (OrgTec):
 
     def on_of(self):
-        if self.power == 'ON':
+        if self.pwr == 'ON':
             print('Извлечение бумаги\nПарковка каретки')
-            self.power = 'OFF'
+            self.pwr = 'OFF'
             self.net_connect = 'disconnected'
         else:
             print('Проверка бумаги...\nпроверка чернил...\nпрочистка головки...')
-            self.power = 'ON'
+            self.pwr = 'ON'
 
     def soft_update(self, version):
         print('Вставте флешку и одновременно нажмите кнопу питания и печати\n'
@@ -57,12 +61,12 @@ class Printer (OrgTec):
 class Skaner (OrgTec):
 
     def on_of(self):
-        if self.power == 'ON':
+        if self.pwr == 'ON':
             print('Паркрвка датчика')
-            self.power = 'OFF'
+            self.pwr = 'OFF'
         else:
-            print('Проверка наличия документа...\n')
-            self.power = 'ON'
+            print('Проверка наличия документа...')
+            self.pwr = 'ON'
 
     def soft_update(self, version):
         print('Подключись к компютеру и в сервисном приложении нажми "Обновить"\n'
@@ -77,15 +81,16 @@ class Skaner (OrgTec):
         with open('scan.txt', 'w') as f:
             f.write(izo)
 
+
 class PC (OrgTec):
     def on_of(self):
-        if self.power == 'ON':
+        if self.pwr == 'ON':
             print('Сохранение данных...\nЗавершение сеанса...')
-            self.power = 'OFF'
+            self.pwr = 'OFF'
             self.net_connect = 'disconnected'
         else:
             print('Запуск ОС...\nВедите пароль')
-            self.power = 'ON'
+            self.pwr = 'ON'
 
     def soft_update(self, version):
         print('Открой центр обновлений, нажми обновить, введи пароль\n'
@@ -100,6 +105,29 @@ class PC (OrgTec):
     def net_connect(self):
         print('Подключение к локальной сети...\nПодключение к интернету...')
         self.network = 'Local and Internet'
+
+class Storage():
+
+    def __init__(self, name):
+        self.storage = []
+        self.name =name
+
+
+    def to_storage(self, tecnic):
+        if tecnic.id not in self.storage:
+        self.storage.append([tecnic.__class__.__name__, tecnic.id])
+
+    def __str__(self):
+        return f"{self.name}\n{self.storage}"
+
+    def __iter__(self):
+        point = 0
+        while point <= len(self.storage):
+            yield self.storage[point-1]
+            point += 1
+
+
+
 
 x = PC()
 x.soft_update(5.2)
@@ -119,3 +147,10 @@ z.net_connect(1.2)
 z.scan()
 z.soft_update(2.2)
 y.print_scan(1)
+sto = Storage('ss')
+sto.to_storage(y)
+sto.to_storage(z)
+sto.to_storage(y)
+print(sto)
+for i in sto:
+    print (i)

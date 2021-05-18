@@ -10,7 +10,7 @@ def fact_gen(n):
 a = fact_gen(4)
 print(next(a))
 print(next(a))
-print(next(a))
+print(next(a))t
 
 for i in fact_gen(20):
     print(i)
