@@ -41,11 +41,10 @@ class Matrix:
         return s
 
 
-
-m1=Matrix([[1, 2, 3], [2, 3, 4], [3, 5, 6]])
-m2=Matrix([[2, 3, 4], [3, 5, 6], [1, 2, 3]])
-print (m2 + m1)
-print (m2 - m1)
-print (m2 * 2)
-print (m2 / 2)
+m1 = Matrix([[1, 2, 3], [2, 3, 4], [3, 5, 6]])
+m2 = Matrix([[2, 3, 4], [3, 5, 6], [1, 2, 3]])
+print(m2 + m1)
+print(m2 - m1)
+print(m2 * 2)
+print(m2 / 2)
 print(m1)

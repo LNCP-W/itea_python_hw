@@ -1,6 +1,6 @@
 class Car:
 
-    def __init__(self, speed = 0, color = "no color", name = "noname", is_police = False):
+    def __init__(self, speed=0, color="no color", name="noname", is_police=False):
         self.speed = speed
         self.color = color
         self.name = name
@@ -28,8 +28,10 @@ class TownCar(Car):
             return f"{self.color} car was speedind. Call police."
         return f"Car speed is {self.speed}"
 
+
 class SportCar(Car):
     pass
+
 
 class WorkCar(Car):
     def show_speed(self):
@@ -37,8 +39,10 @@ class WorkCar(Car):
             return f"{self.color} car was speedind. Call police."
         return f"Car speed is {self.speed}"
 
+
 class PoliceCar(Car):
     pass
+
 
 car_1 = TownCar(45, "Red", "Hort")
 print(car_1.show_speed())
