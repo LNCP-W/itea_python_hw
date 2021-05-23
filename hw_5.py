@@ -1,49 +1,49 @@
-create table employees (
-employee_id SERIAL primary key,
-fio text not null,
-position text not null,
-department_id integer not null,
-foreign key (department_id) references departments (department_id)
+CREATE TABLE employees (
+employee_id SERIAL PRIMARY KEY,
+fio TEXT NOT NULL,
+position TEXT NOT NULL,
+department_id INTEGER NOT NULL,
+FOREIGN KEY (department_id) REFERENCES departments (department_id)
 );
 
-create table departments (
-department_id serial primary key,
-department_name text not null
+CREATE TABLE departments (
+department_id SERIAL PRIMARY KEY,
+department_name TEXT NOT NULL
 );
 
-create table orders (
-order_id serial PRIMARY key,
-created_dt text not null,
-updated_dt text,
-ordrt_type text not null,
-description text not null,
-status text not null,
-serial_no integer not null,
-creator_id integer not null,
-foreign key (creator_id) references employees (employee_id)
+CREATE TABLE orders (
+order_id SERIAL PRIMARY KEY,
+created_dt TEXT NOT NULL,
+updated_dt TEXT,
+ordrt_type TEXT NOT NULL,
+description TEXT NOT NULL,
+status TEXT NOT NULL,
+serial_no INTEGER NOT NULL,
+creator_id INTEGER NOT NULL,
+FOREIGN KEY (creator_id) REFERENCES employees (employee_id)
 );
 
-insert into departments (department_name) values ('central Office');
-insert into departments (department_name) values ('Lviv Office');
+INSERT INTO departments (department_name) VALUES ('central Office');
+INSERT INTO departments (department_name) VALUES ('Lviv Office');
 
-insert into employees values (1, 'Ivanov Ivan', 'Big Boss', 1);
-insert into employees (fio, position, department_id) values ('Petrenko Petro', 'Middle Boss', 1);
-insert into employees (fio, position, department_id) values ('Semenov Semen', 'Little Boss', 2);
-insert into employees (fio, position, department_id) values ('Arturov Artur', 'Manager', 2);
+INSERT INTO employees VALUES (1, 'Ivanov Ivan', 'Big Boss', 1);
+INSERT INTO employees (fio, position, department_id) VALUES ('Petrenko Petro', 'Middle Boss', 1);
+INSERT INTO employees (fio, position, department_id) VALUES ('Semenov Semen', 'Little Boss', 2);
+INSERT INTO employees (fio, position, department_id) VALUES ('Arturov Artur', 'Manager', 2);
 
-insert into orders (created_dt, ordrt_type, description, status, serial_no, creator_id)
-	values ('11.05.2021', 'paid', 'not started', 'new', '2588624',4);
+INSERT INTO orders (created_dt, ordrt_type, description, status, serial_no, creator_id)
+	VALUES ('11.05.2021', 'paid', 'NOT started', 'new', '2588624',4);
 
-insert into orders (created_dt, ordrt_type, description, status, serial_no, creator_id)
-	values ('12.05.2021', 'guaranty', 'bad battry', 'new', '33556688',4);
+INSERT INTO orders (created_dt, ordrt_type, description, status, serial_no, creator_id)
+	VALUES ('12.05.2021', 'guaranty', 'bad battry', 'new', '33556688',4);
 
-insert into orders (created_dt, ordrt_type, description, status, serial_no, creator_id)
-	values ('08.05.2021', 'paid', 'broken screen', 'new', '123456888',4);
+INSERT INTO orders (created_dt, ordrt_type, description, status, serial_no, creator_id)
+	VALUES ('08.05.2021', 'paid', 'broken screen', 'new', '123456888',4);
 
-select * from orders;
+SELECT * FROM orders;
 
-select fio, position from employees;
+SELECT fio, position FROM employees;
 
-select * from orders order by created_dt;
+SELECT * FROM orders ORDER BY created_dt;
 
-select * from orders where ordrt_type = 'guaranty';
+SELECT * FROM orders WHERE ordrt_type = 'guaranty';
