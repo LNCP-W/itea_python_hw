@@ -1,6 +1,7 @@
 from lesson_3.hw_3_2 import Matrix
 import pytest
 
+
 @pytest.mark.parametrize('mat_1, mat_2, mat_result',
                          [
                           ([[1, 1], [1, 1]],
@@ -20,6 +21,7 @@ def test_add_matrix(mat_1, mat_2, mat_result):
     m2 = Matrix(mat_2)
     res = m1 + m2
     assert res.mat == mat_result
+    
 
 @pytest.mark.parametrize('mat_1, mat_2, mat_result',
                          [
@@ -40,6 +42,8 @@ def test_sub_matrix(mat_1, mat_2, mat_result):
     m2 = Matrix(mat_2)
     res = m1 - m2
     assert res.mat == mat_result
+    
+    
 @pytest.mark.parametrize('mat_1,multiplier, mul_res', [
                           ([[1, 1], [1, 1]],
                            1,
@@ -58,6 +62,7 @@ def test_mul_matrix(mat_1, multiplier, mul_res):
     m1 = Matrix(mat_1)
     res = m1 * multiplier
     assert res.mat == mul_res
+    
 
 @pytest.mark.parametrize('mat_1, divizor, res_div',[
                           ([[1, 1], [1, 1]],
@@ -77,6 +82,8 @@ def test_div_matrix(mat_1, divizor, res_div):
     m1 = Matrix(mat_1)
     res = m1 / divizor
     assert res.mat == res_div
+    
+    
 @pytest.mark.parametrize('mat_1, divizor, exc_type', [
 ([[0, 5, 3], [25, -5, 6], [4, 55, 6]],
                            0,
