@@ -5,7 +5,7 @@ from uuid import uuid4
 
 class OrgTec(ABC):
 
-    def __init__(self, pwr = 'OFF', soft_version = '1.0', network = 'disconnected'):
+    def __init__(self, pwr='OFF', soft_version='1.0', network='disconnected'):
         self.pwr = pwr
         self.soft_version = soft_version
         self.network = network
@@ -42,7 +42,7 @@ class Printer (OrgTec):
         self.soft_version = version
 
     def net_connect(self):
-        print('Подключи сетевой шнур\n Подключение к локальной сети...')
+        print('Подключи сетевой шнур\nПодключение к локальной сети...')
         self.network = 'Local'
 
     def print_some(self, copies):
@@ -54,8 +54,6 @@ class Printer (OrgTec):
         with open('scan.txt', 'r') as f:
             izo = (''.join(f.readlines()) + '\n') * int(copies)
             print(izo.rstrip())
-
-
 
 
 class Skaner (OrgTec):
@@ -73,10 +71,11 @@ class Skaner (OrgTec):
               'Загрузка обновления...\n'
               f'обновлено с {self.soft_version} до {version}')
         self.soft_version = version
+
     def net_connect(self, version):
         print('Невозможно подключить к сети, только к компютеру')
 
-    def scan (self, izo = ' /\__ /\ \n|  O_O  |\n \ ___ /'):
+    def scan (self, izo=' /\__ /\ \n|  O_O  |\n \ ___ /'):
         print('Сканипую документ')
         with open('scan.txt', 'w') as f:
             f.write(izo)
@@ -106,16 +105,16 @@ class PC (OrgTec):
         print('Подключение к локальной сети...\nПодключение к интернету...')
         self.network = 'Local and Internet'
 
+
 class Storage():
 
     def __init__(self, name):
         self.storage = []
         self.name =name
 
-
     def to_storage(self, tecnic):
         if tecnic.id not in self.storage:
-        self.storage.append([tecnic.__class__.__name__, tecnic.id])
+            self.storage.append([tecnic.__class__.__name__, tecnic.id])
 
     def __str__(self):
         return f"{self.name}\n{self.storage}"
@@ -125,8 +124,6 @@ class Storage():
         while point <= len(self.storage):
             yield self.storage[point-1]
             point += 1
-
-
 
 
 x = PC()
