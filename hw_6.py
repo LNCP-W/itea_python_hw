@@ -1,10 +1,41 @@
-
 import psycopg2
 from psycopg2 import sql
 from datetime import datetime
 
 conn = psycopg2.connect("postgres://postgres:StrongPassword@localhost:5432/order_service_db")
 cursor = conn.cursor()
+
+
+def create_tb(tab_to_create):
+    with conn, conn.cursor() as cursor:
+        for i in tab_to_create:
+            cursor.execute(i)
+
+
+def add_some(table, columns, val):
+    with conn, conn.cursor() as cursor:
+        many_arg = ("%s, " * len(columns.split()))[:-2]  # опрределяет количество аргументовдля вставки %s
+        for i in val:
+            sql1 = sql.SQL(f"INSERT INTO {table} ({columns}) VALUES ({many_arg})")
+            cursor.execute(sql1, i)
+
+
+def add_department(dep):
+    add_some('departments', 'department_name', dep)
+
+
+def add_employee(empl):
+    add_some("employees", "fio, position, department_id", empl)
+
+
+def add_order(order, time=datetime.now()):
+    for i in order:
+        i.insert(0, time)
+    add_some(
+        "orders",
+        "created_dt, order_type, description, status, serial_no, creator_id",
+        order)
+
 
 create = [
     """CREATE TABLE departments (
@@ -33,40 +64,18 @@ create = [
     );"""
     ]
 
-def create_tb(tab_to_create):
-    with conn:
-        with conn.cursor() as cursor:
-            for i in tab_to_create:
-                cursor.execute(i)
-
 create_tb(create)
 
-departments=[
-  ["Central office",],
-  ["Lviv department",],
-  ["Odesa department",],
-  ["Kyiv department",]
+departments = [
+  ["Central office", ],
+  ["Lviv department", ],
+  ["Odesa department", ],
+  ["Kyiv department", ]
     ]
-
-
-
-
-def add_some(table, columns, val):
-    with conn, conn.cursor() as cursor:
-        many_arg = ("%s, "* len(columns.split()))[:-2] # опрределяет количество аргументовдля вставки %s
-        for i in val:
-            sql1=sql.SQL(f"INSERT INTO {table} ({columns}) VALUES ({many_arg})")
-            cursor.execute(sql1, i)
-
-def add_department(dep):
-    add_some('departments', 'department_name', dep)
 
 add_department(departments)
 
-def add_employee(empl):
-    add_some("employees", "fio, position, department_id", empl)
-
-employees=[
+employees = [
     ['Ivanov Ivan', 'Big Boss', 1],
     ['Petrenko Petro', 'Central Manager', 1],
     ['Levko Lev', 'Small Boss', 2],
@@ -82,23 +91,7 @@ employees=[
 
 add_employee(employees)
 
-def add_some(table, columns, val):
-    with conn, conn.cursor() as cursor:
-        many_arg = ("%s, "* len(columns.split()))[:-2] # опрределяет количество аргументовдля вставки %s
-        for i in val:
-            sql1=sql.SQL(f"INSERT INTO {table} ({columns}) VALUES ({many_arg})")
-            cursor.execute(sql1, i)
-
-
-def add_order(order, time = datetime.now()):
-    for i in order:
-        i.insert(0, time)
-    add_some(
-        "orders",
-        "created_dt, order_type, description, status, serial_no, creator_id",
-        order)
-
-order=[
+orders = [
     ['paid', 'no sound', 'new', 13254351, 4],
     ['paid', 'no vibro', 'new', 53843535, 4],
     ['garant', 'water damage', 'new', 643543973, 7],
@@ -115,14 +108,19 @@ order=[
     ['garant', 'no vibro', 'again', 53843535, 10]
     ]
 
-add_order(order)
+add_order(orders)
 
-
-result1 = cursor.execute("SELECT * FROM orders WHERE status='new' and creator_id=4 and created_dt BETWEEN '2021-05-23' and now()")
+result1 = cursor.execute("""SELECT * FROM orders 
+    WHERE status='new' a
+    nd creator_id=4 
+    and created_dt 
+    BETWEEN '2021-05-23' and now()""")
 for row in cursor.fetchall():
     print(row)
 
-result2 = cursor.execute("SELECT fio, position, department_name FROM employees LEFT JOIN departments ON employees.department_id=departments.department_id ORDER BY fio")
+result2 = cursor.execute("""SELECT fio, position, department_name 
+    FROM employees LEFT JOIN departments ON employees.department_id=departments.department_id 
+    ORDER BY fio""")
 for row in cursor.fetchall():
     print(row)
 
