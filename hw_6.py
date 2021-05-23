@@ -111,8 +111,8 @@ orders = [
 add_order(orders)
 
 result1 = cursor.execute("""SELECT * FROM orders 
-    WHERE status='new' a
-    nd creator_id=4 
+    WHERE status='new' 
+    and creator_id=4 
     and created_dt 
     BETWEEN '2021-05-23' and now()""")
 for row in cursor.fetchall():
