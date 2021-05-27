@@ -23,8 +23,10 @@ class Car:
 
 
 class TownCar(Car):
+    speed_limit = 60
+
     def show_speed(self):
-        if self.speed > 60:
+        if self.speed > self.__class__.speed_limit:
             return f"{self.color} car was speedind. Call police."
         return f"Car speed is {self.speed}"
 
@@ -34,8 +36,10 @@ class SportCar(Car):
 
 
 class WorkCar(Car):
+    speed_limit = 40
+
     def show_speed(self):
-        if self.speed > 40:
+        if self.speed > self.speed_limit:
             return f"{self.color} car was speedind. Call police."
         return f"Car speed is {self.speed}"
 
@@ -44,7 +48,7 @@ class PoliceCar(Car):
     pass
 
 
-car_1 = TownCar(45, "Red", "Hort")
+car_1 = TownCar(65, "Red", "Hort")
 print(car_1.show_speed())
 print(car_1.go())
 print(car_1.turn("left"))
