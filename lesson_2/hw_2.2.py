@@ -13,9 +13,9 @@ class Order:
 
     def in_active(self):
         if self.status == "not_active":
-            return "This Order not active"
+            print ("This Order not active")
         x = date.today() - self.time_create
-        return f"Order is active {x.days} days."
+        return x.days
 
     def change_status(self, new_status):
         self.status = new_status
