@@ -74,11 +74,27 @@ class Department:
             self.department_id = cursor.fetchone()[0]
 
 
+class Employees:
+
+    def __init__(self,  fio, position, department_id):
+        self.fio = fio
+        self.position = position
+        self.department_id = department_id
+        with conn, conn.cursor() as cursor:
+            data_insert = """INSERT INTO employees (fio, position, department_id) VALUES (%s, %s, %s) RETURNING employee_id"""
+            fields = (self.fio, self.position, self.department_id)
+            cursor.execute(data_insert, fields)
+            self.employee_id = cursor.fetchone()[0]
 
 
 
-x = Order('garent', 'broken all', 66666, 2)
-print(x.order_id)
-x.changr_creator(1)
-y=Department('dfdf')
-print(y.department_id)
+
+
+
+# x = Order('garent', 'broken all', 66666, 2)
+# print(x.order_id)
+# x.changr_creator(1)
+# y=Department('dfdf')
+# print(y.department_id)
+z = Employees("Harry Potter", "office mad", 1)
+print(z.employee_id)
