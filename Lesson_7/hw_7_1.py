@@ -6,10 +6,24 @@ from envparse import Env
 
 conn_str = Env().str('db_conn_str')
 conn = psycopg2.connect(conn_str)
-cursor = conn.cursor()
 
 
-class Order:
+
+
+class StandartMetod:
+
+    def delete_one(self, table, some_id, id_value):
+        data_insert = f"""DELETE FROM {table} WHERE {some_id} = {id_value}"""
+        with conn, conn.cursor() as cursor:
+            cursor.execute(data_insert)
+
+    def change_name(self, table, name_field, id_field, some_id, new_name):
+        data_insert = f""" UPDATE {table} SET {name_field} = '{new_name}' WHERE {id_field} = {some_id}"""
+        with conn, conn.cursor() as cursor:
+            cursor.execute(data_insert)
+
+
+class Order(StandartMetod):
 
     def __init__(self, order_type, description, serial, creator_id, status='new'):
         self.status = status
@@ -60,8 +74,13 @@ class Order:
     def order_id(self):
         return f"Order id is: {self.__id}"
 
+    def delete_one(self):
+        super().delete_one('orders', 'order_id', self.order_id)
 
-class Department:
+
+
+
+class Department(StandartMetod):
 
     def __init__(self, department_name):
         self.name = department_name
@@ -73,19 +92,40 @@ class Department:
             cursor.execute(data_insert, (department_name, ))
             self.department_id = cursor.fetchone()[0]
 
+    def change_name(self, new_name):
+        super().change_name('departments', 'department_name', 'department_id', self.department_id, new_name)
 
-class Employees:
+    def delete_one(self):
+        super().delete_one('departments', 'department_id', self.department_id)
+
+class Employees(StandartMetod):
 
     def __init__(self,  fio, position, department_id):
         self.fio = fio
         self.position = position
         self.department_id = department_id
         with conn, conn.cursor() as cursor:
-            data_insert = """INSERT INTO employees (fio, position, department_id) VALUES (%s, %s, %s) RETURNING employee_id"""
+            data_insert = """
+                INSERT INTO employees (fio, position, department_id) 
+                VALUES (%s, %s, %s) 
+                RETURNING employee_id
+                """
             fields = (self.fio, self.position, self.department_id)
             cursor.execute(data_insert, fields)
             self.employee_id = cursor.fetchone()[0]
 
+    def change_name(self, new_name):
+        super().change_name('employees', 'fio', 'employee_id', self.employee_id, new_name)
+
+
+    def change_position(self, new_position):
+        with conn, conn.cursor() as cursor:
+            data_insert = """UPDATE employees SET position = %s WHERE employee_id = %s"""
+            fields = (new_position, self.employee_id)
+            cursor.execute(data_insert, fields)
+
+    def delete_one(self):
+        super().delete_one('employees', 'employee_id', self.employee_id)
 
 
 
@@ -94,7 +134,11 @@ class Employees:
 # x = Order('garent', 'broken all', 66666, 2)
 # print(x.order_id)
 # x.changr_creator(1)
-# y=Department('dfdf')
-# print(y.department_id)
-z = Employees("Harry Potter", "office mad", 1)
-print(z.employee_id)
+# x.delete_one()
+y=Department('dfdf')
+print(y.department_id)
+y.change_name("4444")
+# z = Employees("Harry Potter", "office mag", 1)
+# print(z.employee_id)
+# z.change_name('fudji')
+# z.change_position('sdsss')
