@@ -8,8 +8,6 @@ conn_str = Env().str('db_conn_str')
 conn = psycopg2.connect(conn_str)
 
 
-
-
 class StandartMetod:
 
     def delete_one(self, table, some_id, id_value):
@@ -78,8 +76,6 @@ class Order(StandartMetod):
         super().delete_one('orders', 'order_id', self.order_id)
 
 
-
-
 class Department(StandartMetod):
 
     def __init__(self, department_name):
@@ -97,6 +93,7 @@ class Department(StandartMetod):
 
     def delete_one(self):
         super().delete_one('departments', 'department_id', self.department_id)
+
 
 class Employees(StandartMetod):
 
@@ -117,7 +114,6 @@ class Employees(StandartMetod):
     def change_name(self, new_name):
         super().change_name('employees', 'fio', 'employee_id', self.employee_id, new_name)
 
-
     def change_position(self, new_position):
         with conn, conn.cursor() as cursor:
             data_insert = """UPDATE employees SET position = %s WHERE employee_id = %s"""
@@ -128,14 +124,11 @@ class Employees(StandartMetod):
         super().delete_one('employees', 'employee_id', self.employee_id)
 
 
-
-
-
 # x = Order('garent', 'broken all', 66666, 2)
 # print(x.order_id)
 # x.changr_creator(1)
 # x.delete_one()
-y=Department('dfdf')
+y = Department('dfdf')
 print(y.department_id)
 y.change_name("4444")
 # z = Employees("Harry Potter", "office mag", 1)
