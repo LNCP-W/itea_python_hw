@@ -15,10 +15,16 @@ class StandartMetod:
         with conn, conn.cursor() as cursor:
             cursor.execute(data_insert)
 
-    def change_name(self, table, name_field, id_field, some_id, new_name):
+    def _change_some(self, table, name_field, id_field, some_id, new_name):
         data_insert = f""" UPDATE {table} SET {name_field} = '{new_name}' WHERE {id_field} = {some_id}"""
         with conn, conn.cursor() as cursor:
             cursor.execute(data_insert)
+    
+    def _change_some_with_date(self, table, name_field, new_name, id_field, some_id):
+        data_insert = f""" UPDATE {table} SET {name_field} = '{new_name}', updated_dt = %s WHERE {id_field} = {some_id}"""
+        with conn, conn.cursor() as cursor:
+            cursor.execute(data_insert, (date.today(), ))
+    
 
 
 class Order(StandartMetod):
@@ -50,10 +56,7 @@ class Order(StandartMetod):
 
     def change_status(self, new_status):
         self.status = new_status
-        data_insert = """UPDATE orders SET status = %s, updated_dt = %s WHERE order_id=%s"""
-        fields = (self.status, date.today(), self.order_id)
-        with conn, conn.cursor() as cursor:
-            cursor.execute(data_insert, fields)
+        super()._change_some_with_date('orders', 'status', self.status, 'order_id', self.order_id)
 
     def change_description(self, new_description):
         self.description = new_description
@@ -89,7 +92,7 @@ class Department(StandartMetod):
             self.department_id = cursor.fetchone()[0]
 
     def change_name(self, new_name):
-        super().change_name('departments', 'department_name', 'department_id', self.department_id, new_name)
+        super()._change_some('departments', 'department_name', 'department_id', self.department_id, new_name)
 
     def delete_one(self):
         super().delete_one('departments', 'department_id', self.department_id)
@@ -112,26 +115,22 @@ class Employees(StandartMetod):
             self.employee_id = cursor.fetchone()[0]
 
     def change_name(self, new_name):
-        super().change_name('employees', 'fio', 'employee_id', self.employee_id, new_name)
+        super()._change_some('employees', 'fio', 'employee_id', self.employee_id, new_name)
 
     def change_position(self, new_position):
-        with conn, conn.cursor() as cursor:
-            data_insert = """UPDATE employees SET position = %s WHERE employee_id = %s"""
-            fields = (new_position, self.employee_id)
-            cursor.execute(data_insert, fields)
+        super()._change_some('employees', 'position', 'employee_id', self.employee_id, new_position)
 
     def delete_one(self):
         super().delete_one('employees', 'employee_id', self.employee_id)
 
 
-# x = Order('garent', 'broken all', 66666, 2)
-# print(x.order_id)
+x = Order('garent', 'broken all', 66666, 2)
+print(x.order_id)
 # x.changr_creator(1)
 # x.delete_one()
-y = Department('dfdf')
-print(y.department_id)
-y.change_name("4444")
+x.change_status("bed")
+
 # z = Employees("Harry Potter", "office mag", 1)
 # print(z.employee_id)
-# z.change_name('fudji')
-# z.change_position('sdsss')
+# z.change_name('dorota')
+# z.change_position('fasad')
