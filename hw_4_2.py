@@ -113,11 +113,15 @@ class Storage():
         self.name =name
 
     def to_storage(self, tecnic):
-        if tecnic.id not in self.storage:
-            self.storage.append([tecnic.__class__.__name__, tecnic.id])
+        if tecnic not in self.storage:
+            self.storage.append(tecnic)
 
     def __str__(self):
-        return f"{self.name}\n{self.storage}"
+        tec_on_storage = []
+        for i in self.storage:
+            tec_on_storage.append(i.__class__.__name__)
+            print(tec_on_storage)
+        return f"{self.name}\n{tec_on_storage}"
 
     def __iter__(self):
         point = 0
