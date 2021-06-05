@@ -1,16 +1,5 @@
-""" Преобразовать все самописные классы-модели из прошлых ДЗ (из задачи 1: Заявки - Orders, Департаменты
-- Departments,
-Сотрудники - Employees) в модели для использования в MongoDB. Предусмотреть необходимые связи, валидацию
-данных и ограничения.
-Написать функции, которые будут:
-создавать/изменять/удалять новую заявку/сотрудника/департамент
-Подсказка: у вас должно получиться 3 модели и 9 функций =)"""
-
 import mongoengine as me
 from datetime import datetime
-from time import sleep
-import json
-
 
 me.connect("hw_9")
 
@@ -25,6 +14,12 @@ class Departments(me.Document):
     def __repr__(self):
         return f"{self.dep_name} in {self.location}"
 
+    def write_to_json(self):
+        json_data = self.to_json()
+        self_id = self.save().id
+        with open(f"{self_id}.json", "w") as f:
+            f.write(json_data)
+
 
 class Employees(me.Document):
     fio = me.StringField(required=True, min_length=3, unique=True)
@@ -38,12 +33,19 @@ class Employees(me.Document):
     def __repr__(self):
         return f"{self.fio} {self.position} in {self.department_id}"
 
+    def write_to_json(self):
+        json_data = self.to_json()
+        self_id = self.save().id
+        with open(f"{self_id}.json", "w") as f:
+            f.write(json_data)
+
+
 class Orders(me.Document):
-    type  = me.StringField(required=True, min_length=3)
-    status  = me.StringField(required=True, min_length=3)
+    type = me.StringField(required=True, min_length=3)
+    status = me.StringField(required=True, min_length=3)
     serial = me.IntField(required=True)
     time_create = me.DateTimeField()
-    description =me.StringField()
+    description = me.StringField()
     creator = me.ReferenceField(Employees, reverse_delete_rule=me.CASCADE)
     updated = me.DateTimeField()
 
@@ -62,35 +64,32 @@ class Orders(me.Document):
         return super().save(*args, **kwargs)
 
     def update(self, *args, **kwargs):
-        return super().update(updated = datetime.now(), *args, **kwargs)
+        return super().update(updated=datetime.now(), *args, **kwargs)
+
+    def write_to_json(self):
+        json_data = self.to_json()
+        self_id = self.save().id
+        with open(f"{self_id}.json", "w") as f:
+            f.write(json_data)
 
 
-dep1 = Departments(dep_name="piu-pasau-A")
+dep1 = Departments(dep_name="Central Office")
 res = dep1.save()
 print(res.id)
+dep1.write_to_json()
 print(dep1)
-sleep(3)
-dep1.update(location='bla-bla-bla')
-sleep(3)
+dep1.update(location='Odessa')
 print(dep1)
-
-
-emp1 = Employees(fio="piu-aspiu-pu", position="slave", department_id=dep1)
-res = emp1.save()
+emp1 = Employees(fio="Ivanon Ivan", position="slave", department_id=dep1)
+emp1.write_to_json()
+emp1.save()
 print(emp1)
-sleep(3)
 emp1.update(position="free")
-print(res.id)
-print(emp1)
-
 order1 = Orders(type='gardant', status='new', serial=654353, description='Some broken phone', creator=emp1)
-res = order1.save()
+order1.save()
+
+order1.write_to_json()
+
 print(order1)
-sleep(3)
 order1.update(status='well done')
-print(res.id)
-print(order1)
-
-sleep(10)
-dep1.delete()
-
+# dep1.delete()
