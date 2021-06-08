@@ -5,8 +5,8 @@ me.connect("hw_9")
 
 
 class Departments(me.Document):
-    dep_name = me.StringField(required=True, min_length=3, unique=True)
-    location = me.StringField()
+    dep_name = me.StringField(required=True, min_length=3, max_length=99, unique=True)
+    location = me.StringField(min_length=2, max_length=99)
 
     def __str__(self):
         return f"Department {self.dep_name} located in {self.location}"
@@ -19,6 +19,20 @@ class Departments(me.Document):
         self_id = self.save().id
         with open(f"{self_id}.json", "w") as f:
             f.write(json_data)
+
+
+def new_dep(name, loc=None):
+    dep1 = Departments(dep_name=name, location=loc)
+    res = dep1.save()
+    return res.id
+
+
+def edit_dep(upd_id, loc):
+    Departments.objects(id=upd_id).update(location=loc)
+
+
+def del_dep(upd_id):
+    Departments.objects(id=upd_id).delete()
 
 
 class Employees(me.Document):
@@ -40,23 +54,40 @@ class Employees(me.Document):
             f.write(json_data)
 
 
+def new_epm(name, pos, dep):
+    emp1 = Employees(fio=name, position=pos, department_id=dep)
+    res = emp1.save()
+    return res.id
+
+
+def edit_emp(upd_id, pos, dep_id=None):
+    if not dep_id:
+        Employees.objects(id=upd_id).update(position=pos)
+    else:
+        Employees.objects(id=upd_id).update(position=pos, department_id=dep_id)
+
+
+def del_emp(upd_id):
+    Employees.objects(id=upd_id).delete()
+
+
 class Orders(me.Document):
-    type = me.StringField(required=True, min_length=3)
-    status = me.StringField(required=True, min_length=3)
+    order_type = me.StringField(required=True, min_length=3)
+    order_status = me.StringField(required=True, min_length=3)
     serial = me.IntField(required=True)
     time_create = me.DateTimeField()
     description = me.StringField()
-    creator = me.ReferenceField(Employees, reverse_delete_rule=me.CASCADE)
+    order_creator = me.ReferenceField(Employees, reverse_delete_rule=me.CASCADE)
     updated = me.DateTimeField()
 
     def __str__(self):
-        return f"Order was created {self.time_create} by employee #{str(self.creator)}. " \
-               f"Actual status is {self.status}, type: {self.type}, description: {self.description}, " \
+        return f"Order was created {self.time_create} by employee #{str(self.order_creator)}. " \
+               f"Actual status is {self.order_status}, type: {self.order_type}, description: {self.description}, " \
                f"serial number: {self.serial}, last update: {self.updated}."
 
     def __repr__(self):
-        return f"date:{self.time_create} employee :{str(self.creator)}, " \
-               f"status:{self.status}, type: {self.type}, description: {self.description}, " \
+        return f"date:{self.time_create} employee :{str(self.order_creator)}, " \
+               f"status:{self.order_status}, type: {self.order_type}, description: {self.description}, " \
                f"serial number: {self.serial}, updated: {self.updated}."
 
     def save(self, *args, **kwargs):
@@ -64,7 +95,8 @@ class Orders(me.Document):
         return super().save(*args, **kwargs)
 
     def update(self, *args, **kwargs):
-        return super().update(updated=datetime.now(), *args, **kwargs)
+        self.updated = datetime.now()
+        return super().update(*args, **kwargs)
 
     def write_to_json(self):
         json_data = self.to_json()
@@ -73,23 +105,15 @@ class Orders(me.Document):
             f.write(json_data)
 
 
-dep1 = Departments(dep_name="Central Office")
-res = dep1.save()
-print(res.id)
-dep1.write_to_json()
-print(dep1)
-dep1.update(location='Odessa')
-print(dep1)
-emp1 = Employees(fio="Ivanon Ivan", position="slave", department_id=dep1)
-emp1.write_to_json()
-emp1.save()
-print(emp1)
-emp1.update(position="free")
-order1 = Orders(type='gardant', status='new', serial=654353, description='Some broken phone', creator=emp1)
-order1.save()
+def new_order(status, o_type, sn, desc, creator):
+    ord1 = Orders(order_status=status, order_type=o_type, serial=sn, description=desc, order_creator=creator)
+    res = ord1.save()
+    return res.id
 
-order1.write_to_json()
 
-print(order1)
-order1.update(status='well done')
-# dep1.delete()
+def edit_order(upd_id, status, o_type, desc):
+    Orders.objects(id=upd_id).update(order_status=status, order_type=o_type, description=desc, updated=datetime.now())
+
+
+def del_order(upd_id):
+    Orders.objects(id=upd_id).delete()
