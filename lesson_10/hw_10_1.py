@@ -42,6 +42,11 @@ def del_dep(upd_id):
     return f"{upd_id} deleted"
 
 
+@my_app.route('/search_department/<upd_id>')
+def search_department(upd_id):
+    return f'{Departments.objects(id=upd_id)} finded'
+
+
 class Employees(me.Document):
     fio = me.StringField(required=True, min_length=3, unique=True)
     position = me.StringField(required=True)
@@ -78,6 +83,11 @@ def edit_emp(upd_id, pos):
 def del_emp(upd_id):
     Employees.objects(id=upd_id).delete()
     return f'{upd_id} deleted'
+
+
+@my_app.route('/search_employee/<upd_id>')
+def search_employee(upd_id):
+    return f'{Employees.objects(id=upd_id)} finded'
 
 
 class Orders(me.Document):
@@ -131,6 +141,11 @@ def edit_order(upd_id, status, o_type, desc):
 def del_order(upd_id):
     Orders.objects(id=upd_id).delete()
     return f'{upd_id} deleted'
+
+
+@my_app.route('/search_order/<upd_id>')
+def search_order(upd_id):
+    return f'{Orders.objects(id=upd_id)} finded'
 
 
 my_app.run()
