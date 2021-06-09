@@ -23,26 +23,26 @@ class Departments(me.Document):
             f.write(json_data)
 
 
-@my_app.route('/new_department/<string:name>,<string:loc>')
+@my_app.route('/new_department/<string:name>,<string:loc>', method=["POST"])
 def new_dep(name, loc=None):
     dep1 = Departments(dep_name=name, location=loc)
     res = dep1.save()
     return f"{str(res.id)} created"
 
 
-@my_app.route('/edit_department/<upd_id>,<loc>')
+@my_app.route('/edit_department/<upd_id>,<loc>', method=["POST"])
 def edit_dep(upd_id, loc):
     Departments.objects(id=upd_id).update(location=loc)
     return f"{upd_id} edited"
 
 
-@my_app.route('/delete_department/<upd_id>')
+@my_app.route('/delete_department/<upd_id>', method=["DELETE"])
 def del_dep(upd_id):
     Departments.objects(id=upd_id).delete()
     return f"{upd_id} deleted"
 
 
-@my_app.route('/search_department/<upd_id>')
+@my_app.route('/search_department/<upd_id>', method=["GET"])
 def search_department(upd_id):
     return f'{Departments.objects(id=upd_id)} finded'
 
@@ -66,26 +66,26 @@ class Employees(me.Document):
             f.write(json_data)
 
 
-@my_app.route('/new_employee/<name>,<pos>,<dep>')
+@my_app.route('/new_employee/<name>,<pos>,<dep>', method=["POST"])
 def new_epm(name, pos, dep):
     emp1 = Employees(fio=name, position=pos, department_id=dep)
     res = emp1.save()
     return f"{str(res.id)} created"
 
 
-@my_app.route('/edit_employee/<upd_id>,<pos>')
+@my_app.route('/edit_employee/<upd_id>,<pos>', method=["POST"])
 def edit_emp(upd_id, pos):
     Employees.objects(id=upd_id).update(position=pos)
     return f'{upd_id} edited'
 
 
-@my_app.route('/delete_employee/<upd_id>')
+@my_app.route('/delete_employee/<upd_id>', method=["DELETE"])
 def del_emp(upd_id):
     Employees.objects(id=upd_id).delete()
     return f'{upd_id} deleted'
 
 
-@my_app.route('/search_employee/<upd_id>')
+@my_app.route('/search_employee/<upd_id>', method=["GET"])
 def search_employee(upd_id):
     return f'{Employees.objects(id=upd_id)} finded'
 
@@ -124,26 +124,26 @@ class Orders(me.Document):
             f.write(json_data)
 
 
-@my_app.route('/new_order/<status>,<o_type>,<sn>,<desc>,<creator>')
+@my_app.route('/new_order/<status>,<o_type>,<sn>,<desc>,<creator>', method=["POST"])
 def new_order(status, o_type, sn, desc, creator):
     ord1 = Orders(order_status=status, order_type=o_type, serial=sn, description=desc, order_creator=creator)
     res = ord1.save()
     return f"{str(res.id)} created"
 
 
-@my_app.route('/edit_order/<upd_id>,<status>,<o_type>,<desc>')
+@my_app.route('/edit_order/<upd_id>,<status>,<o_type>,<desc>', method=["POST"])
 def edit_order(upd_id, status, o_type, desc):
     Orders.objects(id=upd_id).update(order_status=status, order_type=o_type, description=desc, updated=datetime.now())
     return f'{upd_id} edited'
 
 
-@my_app.route('/delete_order/<upd_id>')
+@my_app.route('/delete_order/<upd_id>', method=["DELETE"])
 def del_order(upd_id):
     Orders.objects(id=upd_id).delete()
     return f'{upd_id} deleted'
 
 
-@my_app.route('/search_order/<upd_id>')
+@my_app.route('/search_order/<upd_id>', method=["GET"])
 def search_order(upd_id):
     return f'{Orders.objects(id=upd_id)} finded'
 
