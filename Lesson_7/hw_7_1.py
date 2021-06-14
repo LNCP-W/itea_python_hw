@@ -27,7 +27,7 @@ class StandartModel:
     
 
 
-class Order(StandartMetod):
+class Order(StandartModel):
     data_insert_create = """
                 INSERT INTO orders 
                 (created_dt, order_type, description, serial_no, creator_id, status)
@@ -79,7 +79,7 @@ class Order(StandartMetod):
         super().delete_one('orders', 'order_id', self.order_id)
 
 
-class Department(StandartMetod):
+class Department(StandartModel):
     data_insert_create = """
             INSERT INTO  departments (department_name) 
             VALUES (%s) RETURNING department_id
@@ -98,7 +98,7 @@ class Department(StandartMetod):
         super().delete_one('departments', 'department_id', self.department_id)
 
 
-class Employees(StandartMetod):
+class Employees(StandartModel):
     data_insert_create = """
         INSERT INTO employees (fio, position, department_id) 
         VALUES (%s, %s, %s) 
