@@ -173,10 +173,12 @@
     ]
     """
 
+
 @my_app.route('/search_orders', methods=["POST"])
 def search_orders():
     input_data = json.loads(request.data)
     data = []
+
     def f(oid):
         x = json.loads(str(Orders.objects(id=oid))[1:-1])
         data.append(x)
