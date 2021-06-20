@@ -224,8 +224,6 @@ def all_departments():
 @my_app.route("/index")
 def index():
     page_title = 'Главная страница'
-
     return render_template('index.html', title=page_title)
-
 
 my_app.run()
