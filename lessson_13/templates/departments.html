@@ -1,0 +1,67 @@
+{% extends 'basic.html' %}
+
+{% block search %}
+<h2>Поиск департамента по id</h2>
+{{ super() }}
+<br>
+{% endblock %}
+{% block results %}
+<br>
+<table border="3">
+  <tr>
+    <th>ID Департамента</th>
+    <th>Название</th>
+    <th>Локация</th>
+
+  </tr>
+  <tr>
+    <td><a href="http://127.0.0.1:5000/search?department={{results[0]['id']}}">{{results[0]['id']}}</a></td>
+    <td>{{results[0]['name']}}</td>
+    <td>{{results[0]['location']}}</td>
+  </tr>
+  <tr>
+    <td><a href="http://127.0.0.1:5000/search?department={{results[1]['id']}}">{{results[1]['id']}}</a></td>
+    <td>{{results[1]['name']}}</td>
+    <td>{{results[1]['location']}}</td>
+  </tr>
+  <tr>
+    <td><a href="http://127.0.0.1:5000/search?department={{results[2]['id']}}">{{results[2]['id']}}</a></td>
+    <td>{{results[2]['name']}}</td>
+    <td>{{results[2]['location']}}</td>
+  </tr>
+  <tr>
+    <td><a href="http://127.0.0.1:5000/search?department={{results[3]['id']}}">{{results[3]['id']}}</a></td>
+    <td>{{results[3]['name']}}</td>
+    <td>{{results[3]['location']}}</td>
+  </tr>
+  <tr>
+    <td><a href="http://127.0.0.1:5000/search?department={{results[4]['id']}}">{{results[4]['id']}}</a></td>
+    <td>{{results[4]['name']}}</td>
+    <td>{{results[4]['location']}}</td>
+  </tr>
+  <tr>
+    <td><a href="http://127.0.0.1:5000/search?department={{results[5]['id']}}">{{results[5]['id']}}</a></td>
+    <td>{{results[5]['name']}}</td>
+    <td>{{results[5]['location']}}</td>
+  </tr>
+  <tr>
+    <td><a href="http://127.0.0.1:5000/search?department={{results[6]['id']}}">{{results[6]['id']}}</a></td>
+    <td>{{results[6]['name']}}</td>
+    <td>{{results[6]['location']}}</td>
+  </tr>
+  <tr>
+    <td><a href="http://127.0.0.1:5000/search?department={{results[7]['id']}}">{{results[7]['id']}}</a></td>
+    <td>{{results[7]['name']}}</td>
+    <td>{{results[7]['location']}}</td>
+  </tr>
+  <tr>
+    <td><a href="http://127.0.0.1:5000/search?department={{results[8]['id']}}">{{results[8]['id']}}</a></td>
+    <td>{{results[8]['name']}}</td>
+    <td>{{results[8]['location']}}</td>
+  </tr>
+  <tr>
+    <td><a href="http://127.0.0.1:5000/search?department={{results[9]['id']}}">{{results[9]['id']}}</a></td>
+    <td>{{results[9]['name']}}</td>
+    <td>{{results[9]['location']}}</td>
+  </tr>
+{% endblock %}
