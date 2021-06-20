@@ -1,126 +1,124 @@
 {% extends 'basic.html' %}
 
 {% block search %}
-
-<h2>Поиск заявки по id</h2>
-{{ super() }}
-<br>
+  <h2>Поиск заявки по id</h2>
+  {{ super() }}
+  <br>
 {% endblock %}
 {% block results %}
-<br>
-<table border="3">
-  <tr>
-    <th>ID Заявки</th>
-    <th>Дата создания</th>
-    <th>Создатель</th>
-    <th>Статус</th>
-    <th>Тип</th>
-    <th>Описание</th>
-    <th>Серийный номер</th>
-    <th>Обновлено</th>
-  </tr>
-  <tr>
-    <td><a href="http://127.0.0.1:5000/search?order={{results[0]['id']}}">{{results[0]['id']}}</a></td>
-    <td>{{results[0]['date']}}</td>
-    <td>{{results[0]['employee']}}</td>
-    <td>{{results[0]['status']}}</td>
-    <td>{{results[0]['type']}}</td>
-    <td>{{results[0]['description']}}</td>
-    <td>{{results[0]['serial number']}}</td>
-    <td>{{results[0]['updated']}}</td>
-  </tr>
-  <tr>
-    <td><a href="http://127.0.0.1:5000/search?order={{results[1]['id']}}">{{results[1]['id']}}</a></td>
-    <td>{{results[1]['date']}}</td>
-    <td>{{results[1]['employee']}}</td>
-    <td>{{results[1]['status']}}</td>
-    <td>{{results[1]['type']}}</td>
-    <td>{{results[1]['description']}}</td>
-    <td>{{results[1]['serial number']}}</td>
-    <td>{{results[1]['updated']}}</td>
-  </tr>
-  <tr>
-    <td><a href="http://127.0.0.1:5000/search?order={{results[2]['id']}}">{{results[2]['id']}}</a></td>
-    <td>{{results[2]['date']}}</td>
-    <td>{{results[2]['employee']}}</td>
-    <td>{{results[2]['status']}}</td>
-    <td>{{results[2]['type']}}</td>
-    <td>{{results[2]['description']}}</td>
-    <td>{{results[2]['serial number']}}</td>
-    <td>{{results[2]['updated']}}</td>
-  </tr>
-  <tr>
-    <td><a href="http://127.0.0.1:5000/search?order={{results[3]['id']}}">{{results[3]['id']}}</a></td>
-    <td>{{results[3]['date']}}</td>
-    <td>{{results[3]['employee']}}</td>
-    <td>{{results[3]['status']}}</td>
-    <td>{{results[3]['type']}}</td>
-    <td>{{results[3]['description']}}</td>
-    <td>{{results[3]['serial number']}}</td>
-    <td>{{results[3]['updated']}}</td>
-  </tr>
-  <tr>
-    <td><a href="http://127.0.0.1:5000/search?order={{results[4]['id']}}">{{results[4]['id']}}</a></td>
-    <td>{{results[4]['date']}}</td>
-    <td>{{results[4]['employee']}}</td>
-    <td>{{results[4]['status']}}</td>
-    <td>{{results[4]['type']}}</td>
-    <td>{{results[4]['description']}}</td>
-    <td>{{results[4]['serial number']}}</td>
-    <td>{{results[4]['updated']}}</td>
-  </tr>
-  <tr>
-    <td><a href="http://127.0.0.1:5000/search?order={{results[5]['id']}}">{{results[5]['id']}}</a></td>
-    <td>{{results[5]['date']}}</td>
-    <td>{{results[5]['employee']}}</td>
-    <td>{{results[5]['status']}}</td>
-    <td>{{results[5]['type']}}</td>
-    <td>{{results[5]['description']}}</td>
-    <td>{{results[5]['serial number']}}</td>
-    <td>{{results[5]['updated']}}</td>
-  </tr>
-  <tr>
-    <td><a href="http://127.0.0.1:5000/search?order={{results[6]['id']}}">{{results[6]['id']}}</a></td>
-    <td>{{results[6]['date']}}</td>
-    <td>{{results[6]['employee']}}</td>
-    <td>{{results[6]['status']}}</td>
-    <td>{{results[6]['type']}}</td>
-    <td>{{results[6]['description']}}</td>
-    <td>{{results[6]['serial number']}}</td>
-    <td>{{results[6]['updated']}}</td>
-  </tr>
-  <tr>
-    <td><a href="http://127.0.0.1:5000/search?order={{results[7]['id']}}">{{results[7]['id']}}</a></td>
-    <td>{{results[7]['date']}}</td>
-    <td>{{results[7]['employee']}}</td>
-    <td>{{results[7]['status']}}</td>
-    <td>{{results[7]['type']}}</td>
-    <td>{{results[7]['description']}}</td>
-    <td>{{results[7]['serial number']}}</td>
-    <td>{{results[7]['updated']}}</td>
-  </tr>
-  <tr>
-    <td><a href="http://127.0.0.1:5000/search?order={{results[8]['id']}}">{{results[8]['id']}}</a></td>
-    <td>{{results[8]['date']}}</td>
-    <td>{{results[8]['employee']}}</td>
-    <td>{{results[8]['status']}}</td>
-    <td>{{results[8]['type']}}</td>
-    <td>{{results[8]['description']}}</td>
-    <td>{{results[8]['serial number']}}</td>
-    <td>{{results[8]['updated']}}</td>
-  </tr>
-  <tr>
-    <td><a href="http://127.0.0.1:5000/search?order={{results[9]['id']}}">{{results[9]['id']}}</a></td>
-    <td>{{results[9]['date']}}</td>
-    <td>{{results[9]['employee']}}</td>
-    <td>{{results[9]['status']}}</td>
-    <td>{{results[9]['type']}}</td>
-    <td>{{results[9]['description']}}</td>
-    <td>{{results[9]['serial number']}}</td>
-    <td>{{results[9]['updated']}}</td>
-  </tr>
-</table>
-
+  <br>
+  <table border="3">
+    <tr>
+      <th>ID Заявки</th>
+      <th>Дата создания</th>
+      <th>Создатель</th>
+      <th>Статус</th>
+      <th>Тип</th>
+      <th>Описание</th>
+      <th>Серийный номер</th>
+      <th>Обновлено</th>
+    </tr>
+    <tr>
+      <td><a href="http://127.0.0.1:5000/search?order={{results[0]['id']}}">{{results[0]['id']}}</a></td>
+      <td>{{results[0]['date']}}</td>
+      <td>{{results[0]['employee']}}</td>
+      <td>{{results[0]['status']}}</td>
+      <td>{{results[0]['type']}}</td>
+      <td>{{results[0]['description']}}</td>
+      <td>{{results[0]['serial number']}}</td>
+      <td>{{results[0]['updated']}}</td>
+    </tr>
+    <tr>
+      <td><a href="http://127.0.0.1:5000/search?order={{results[1]['id']}}">{{results[1]['id']}}</a></td>
+      <td>{{results[1]['date']}}</td>
+      <td>{{results[1]['employee']}}</td>
+      <td>{{results[1]['status']}}</td>
+      <td>{{results[1]['type']}}</td>
+      <td>{{results[1]['description']}}</td>
+      <td>{{results[1]['serial number']}}</td>
+      <td>{{results[1]['updated']}}</td>
+    </tr>
+    <tr>
+      <td><a href="http://127.0.0.1:5000/search?order={{results[2]['id']}}">{{results[2]['id']}}</a></td>
+      <td>{{results[2]['date']}}</td>
+      <td>{{results[2]['employee']}}</td>
+      <td>{{results[2]['status']}}</td>
+      <td>{{results[2]['type']}}</td>
+      <td>{{results[2]['description']}}</td>
+      <td>{{results[2]['serial number']}}</td>
+      <td>{{results[2]['updated']}}</td>
+    </tr>
+    <tr>
+      <td><a href="http://127.0.0.1:5000/search?order={{results[3]['id']}}">{{results[3]['id']}}</a></td>
+      <td>{{results[3]['date']}}</td>
+      <td>{{results[3]['employee']}}</td>
+      <td>{{results[3]['status']}}</td>
+      <td>{{results[3]['type']}}</td>
+      <td>{{results[3]['description']}}</td>
+      <td>{{results[3]['serial number']}}</td>
+      <td>{{results[3]['updated']}}</td>
+    </tr>
+    <tr>
+      <td><a href="http://127.0.0.1:5000/search?order={{results[4]['id']}}">{{results[4]['id']}}</a></td>
+      <td>{{results[4]['date']}}</td>
+      <td>{{results[4]['employee']}}</td>
+      <td>{{results[4]['status']}}</td>
+      <td>{{results[4]['type']}}</td>
+      <td>{{results[4]['description']}}</td>
+      <td>{{results[4]['serial number']}}</td>
+      <td>{{results[4]['updated']}}</td>
+    </tr>
+    <tr>
+      <td><a href="http://127.0.0.1:5000/search?order={{results[5]['id']}}">{{results[5]['id']}}</a></td>
+      <td>{{results[5]['date']}}</td>
+      <td>{{results[5]['employee']}}</td>
+      <td>{{results[5]['status']}}</td>
+      <td>{{results[5]['type']}}</td>
+      <td>{{results[5]['description']}}</td>
+      <td>{{results[5]['serial number']}}</td>
+      <td>{{results[5]['updated']}}</td>
+    </tr>
+    <tr>
+      <td><a href="http://127.0.0.1:5000/search?order={{results[6]['id']}}">{{results[6]['id']}}</a></td>
+      <td>{{results[6]['date']}}</td>
+      <td>{{results[6]['employee']}}</td>
+      <td>{{results[6]['status']}}</td>
+      <td>{{results[6]['type']}}</td>
+      <td>{{results[6]['description']}}</td>
+      <td>{{results[6]['serial number']}}</td>
+      <td>{{results[6]['updated']}}</td>
+    </tr>
+    <tr>
+      <td><a href="http://127.0.0.1:5000/search?order={{results[7]['id']}}">{{results[7]['id']}}</a></td>
+      <td>{{results[7]['date']}}</td>
+      <td>{{results[7]['employee']}}</td>
+      <td>{{results[7]['status']}}</td>
+      <td>{{results[7]['type']}}</td>
+      <td>{{results[7]['description']}}</td>
+      <td>{{results[7]['serial number']}}</td>
+      <td>{{results[7]['updated']}}</td>
+    </tr>
+    <tr>
+      <td><a href="http://127.0.0.1:5000/search?order={{results[8]['id']}}">{{results[8]['id']}}</a></td>
+      <td>{{results[8]['date']}}</td>
+      <td>{{results[8]['employee']}}</td>
+      <td>{{results[8]['status']}}</td>
+      <td>{{results[8]['type']}}</td>
+      <td>{{results[8]['description']}}</td>
+      <td>{{results[8]['serial number']}}</td>
+      <td>{{results[8]['updated']}}</td>
+    </tr>
+    <tr>
+      <td><a href="http://127.0.0.1:5000/search?order={{results[9]['id']}}">{{results[9]['id']}}</a></td>
+      <td>{{results[9]['date']}}</td>
+      <td>{{results[9]['employee']}}</td>
+      <td>{{results[9]['status']}}</td>
+      <td>{{results[9]['type']}}</td>
+      <td>{{results[9]['description']}}</td>
+      <td>{{results[9]['serial number']}}</td>
+      <td>{{results[9]['updated']}}</td>
+    </tr>
+  </table>
 {% endblock %}
 
 

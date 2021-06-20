@@ -166,6 +166,7 @@ def del_order():
 def search_orders():
     input_data = json.loads(request.data)
     data = []
+
     def f(oid):
         x = json.loads(str(Orders.objects(id=oid))[1:-1])
         data.append(x)
@@ -179,15 +180,15 @@ def search_orders():
 def search():
     page_title = "Результат поиска"
     try:
-        for x in request.args.items():
-                dict_do = {
+        for x in request.args.items():  # /search?Сотрудники=60bfe821f98dbc8e792f900b
+            dict_do = {
                 'Заявки': Orders.objects(id=x[1]),
                 'Сотрудники': Employees.objects(id=x[1]),
                 'Департаменты': Departments.objects(id=x[1])
-                    }
-        return render_template ('search_result.html', title=page_title, results=dict_do[x[0]])
+                }
+        return render_template('search_result.html', title=page_title, results=dict_do[x[0]])
     except mongoengine.errors.ValidationError:
-        return render_template ('search_result.html', title=page_title,results='Нет такой заявки')
+        return render_template('search_result.html', title=page_title, results='Нет такой заявки')
 
 
 @my_app.route('/all_orders')
