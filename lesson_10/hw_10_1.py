@@ -70,8 +70,7 @@ class Employees(me.Document):
 
 @my_app.route('/new_employee/<name>,<pos>,<dep>', methods=["POST"])
 def new_epm(name, pos, dep):
-    emp1 = Employees(fio=name, position=pos, department_id=dep)
-    res = emp1.save()
+    res = Employees(fio=name, position=pos, department_id=dep).save()
     return f"{str(res.id)} created"
 
 
