@@ -13,22 +13,26 @@
     <th>ID Заявки</th>
     <th>Дата создания</th>
     <th>Создатель</th>
+    <th>Клиент</th>
     <th>Статус</th>
     <th>Тип</th>
     <th>Описание</th>
     <th>Серийный номер</th>
+    <th>Цена</th>
     <th>Обновлено</th>
   </tr>
     {%for res in results %}
     <tr>
-      <td><a href="http://127.0.0.1:5000/search?Заявки={{res.o_id}}">{{res.o_id}}</a></td>
-      <td>{{res.o_created}}</td>
-      <td><a href="http://127.0.0.1:5000/search?Сотрудники={{res.o_creator}}">{{res.o_creator}}</a></td>
-      <td>{{res.o_status}}</td>
-      <td>{{res.o_type}}</td>
-      <td>{{res.o_descript}}</td>
-      <td>{{res.o_serial}}</td>
-      <td></td>
+      <td><a href="http://127.0.0.1:5000/search?Заявки={{res.id}}">{{res.id}}</a></td>
+      <td>{{res.created.strftime("%d/%m/%Y, %H:%M")}}</td>
+      <td><a href="http://127.0.0.1:5000/search?Сотрудники={{res.creator}}">{{res.creator}}</a></td>
+      <td><a href="http://127.0.0.1:5000/search?Клиенты={{res.client}}">{{res.client}}</a></td>
+      <td>{{res.status}}</td>
+      <td>{{res.type}}</td>
+      <td>{{res.descript}}</td>
+      <td>{{res.serial}}</td>
+      <td>{{res.price}}</td>
+      <td>{{res.updated.strftime("%d/%m/%Y, %H:%M")}}</td>
     </tr>
   {% endfor%}
 </table>
