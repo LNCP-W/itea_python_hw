@@ -30,7 +30,7 @@ class Employees(db.Model):
     name = db.Column(db.String(50), unique=True, nullable=False)
     position = db.Column(db.String(50), nullable=False)
     phone = db.Column(db.Integer, nullable=False)
-    dep_id = db.Column(db.Integer, db.ForeignKey('departments.id'), nullable=False)
+    dep_id = db.Column(db.Integer, db.ForeignKey('departments.id', ondelete='CASCADE'), nullable=False)
 
     def __str__(self):
         return f"Employee {self.name} with id:{self.id} worked on position {self.position} " \
@@ -53,7 +53,8 @@ class Clients(db.Model):
     phone = db.Column(db.Integer, nullable=False)
     is_problem = db.Column(db.Boolean, default=False)
     is_subscribed = db.Column(db.Boolean, default=False)
-    chat_id = db.Column(db.Integer)
+    chat_id = db.Column(db.Integer, unique=True)
+    username = db.Column(db.String(50), unique=True)
 
     def __str__(self):
         return f"Client {self.name}{'!!!'*bool(self.is_problem)} with id:{self.id}, phone number: {self.phone}."
@@ -74,10 +75,10 @@ class Orders(db.Model):
     status = db.Column(db.String(50), nullable=False)
     type = db.Column(db.String(50), nullable=False)
     descript = db.Column(db.String(200), nullable=False)
-    creator = db.Column(db.Integer, db.ForeignKey("employees.id"), nullable=False)
+    creator = db.Column(db.Integer, db.ForeignKey("employees.id", ondelete='CASCADE'), nullable=False)
     serial = db.Column(db.String(20), nullable=False)
     price = db.Column(db.Integer, default=0)
-    client = db.Column(db.Integer, db.ForeignKey("clients.id"), nullable=False)
+    client = db.Column(db.Integer, db.ForeignKey("clients.id", ondelete='CASCADE'), nullable=False)
     updated = db.Column(db.DateTime)
 
     def __str__(self):
@@ -102,4 +103,4 @@ class Orders(db.Model):
         return str(res)
 
 
-# db.creatall()
+# db.create_all()
