@@ -18,13 +18,23 @@ class BotUsers(db.Model):
 
 @bot.message_handler(commands=['start'])
 def start(m):
-    x = BotUsers(
-        nick=m.chat.username,
-        chat_id=m.chat.id,
-        mess_time=datetime.datetime.now()
-    )
-    db.session.add(x)
-    db.session.commit()
-    bot.send_message(chat_id=m.chat.id, text='some')
+    bot.send_message(chat_id=m.chat.id, text=f'Здравствуйте {m.chat.username}.\nВозможности бота:')
+    bot.send_message(chat_id=m.chat.id, text='Подписатся:\n/subsribe ')
+
+@bot.message_handler(commands=['subsribe'])
+def subscribe(m):
+    if BotUsers.query.filter_by(nick=m.chat.username).first():
+        bot.send_message(chat_id=m.chat.id, text=f'Вы уже подписаны')
+    else:
+        x = BotUsers(
+            nick=m.chat.username,
+            chat_id=m.chat.id,
+            mess_time=datetime.datetime.now()
+        )
+        db.session.add(x)
+        db.session.commit()
+        bot.send_message(chat_id=m.chat.id, text=f'Вы подписаны на рассылку уведомлений о готовности заявок. ID = {x.di}')
+
+
 
 bot.polling()

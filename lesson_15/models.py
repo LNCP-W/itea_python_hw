@@ -52,6 +52,8 @@ class Clients(db.Model):
     name = db.Column(db.String(50), unique=True, nullable=False)
     phone = db.Column(db.Integer, nullable=False)
     is_problem = db.Column(db.Boolean, default=False)
+    is_subscribed = db.Column(db.Boolean, default=False)
+    chat_id = db.Column(db.Integer)
 
     def __str__(self):
         return f"Client {self.name}{'!!!'*bool(self.is_problem)} with id:{self.id}, phone number: {self.phone}."
