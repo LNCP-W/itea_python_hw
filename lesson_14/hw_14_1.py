@@ -58,7 +58,6 @@ class Orders(db.Model):
     creator = db.Column(db.Integer, db.ForeignKey("employees.id", ondelete='CASCADE'), nullable=False)
     serial = db.Column(db.String(20), nullable=False)
     price = db.Column(db.Integer, default=0)
-    client = db.Column(db.Integer, db.ForeignKey("clients.id", ondelete='CASCADE'), nullable=False)
     updated = db.Column(db.DateTime)
 
     def __str__(self):
@@ -79,7 +78,6 @@ class Orders(db.Model):
               "creator": self.creator,
               "serial": self.serial,
               "price": price,
-              "client": self.client
               }
         return str(res)
 
