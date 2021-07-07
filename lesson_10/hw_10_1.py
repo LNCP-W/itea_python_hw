@@ -27,8 +27,7 @@ class Departments(me.Document):
 
 @my_app.route('/new_department/<string:name>,<string:loc>', methods=["POST"])
 def new_dep(name, loc=None):
-    dep1 = Departments(dep_name=name, location=loc)
-    res = dep1.save()
+    res = Departments(dep_name=name, location=loc).save()
     return f"{str(res.id)} created"
 
 
@@ -127,8 +126,7 @@ class Orders(me.Document):
 
 @my_app.route('/new_order', methods=["POST"])
 def new_order():
-    input_data = json.loads(request.data)
-    ord1 = Orders(**input_data).save()
+    ord1 = json.loads(request.data).save()
     return f"{str(ord1.id)} created"
 
 
