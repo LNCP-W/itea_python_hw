@@ -13,6 +13,18 @@ def send_message(message):
     channel.basic_publish(exchange='', routing_key='Create', body=message)
 
 
+""" Формат JSON:
+        {
+        "customer":(id клиента - целое число),
+        "status":(Статус заявки - строка),
+        "type":(Тип заявки - строка),
+        "descript":(Описание заявки - строка),
+        "serial":(Серийый номер устройства - строка илицелое число),
+        "price":(цена заявки - целое число),
+        "creator":(id создателя заявки - целое число)
+        }
+        """
+
 send_message(str({
                     "customer": 1,
                     "status": "Новый",
