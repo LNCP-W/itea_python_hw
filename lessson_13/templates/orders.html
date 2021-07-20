@@ -1,0 +1,39 @@
+{% extends 'basic.html' %}
+
+{% block search %}
+
+<h2>Поиск заявки по id</h2>
+{{ super() }}
+<br>
+{% endblock %}
+{% block results %}
+<br>
+<table border="3">
+  <tr>
+    <th>ID Заявки</th>
+    <th>Дата создания</th>
+    <th>Создатель</th>
+    <th>Статус</th>
+    <th>Тип</th>
+    <th>Описание</th>
+    <th>Серийный номер</th>
+    <th>Обновлено</th>
+  </tr>
+    {%for res in results %}
+    <tr>
+      <td><a href="http://127.0.0.1:5000/search?Заявки={{res.id}}">{{res.id}}</a></td>
+      <td>{{res.time_create}}</td>
+      <td><a href="http://127.0.0.1:5000/search?Сотрудники={{res.order_creator.id}}">{{res.order_creator.fio}}</a></td>
+      <td>{{res.order_status}}</td>
+      <td>{{res.order_type}}</td>
+      <td>{{res.description}}</td>
+      <td>{{res.serial}}</td>
+      <td>{{res.updated}}</td>
+    </tr>
+  {% endfor%}
+</table>
+
+{% endblock %}
+
+
+
