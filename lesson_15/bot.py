@@ -1,14 +1,16 @@
 import datetime
-
+from envparse import Env
 from telebot import TeleBot
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask
+
+connection_string = Env().str('db_connection_string')
 app = Flask("__bot__")
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:postgres@localhost/postgres"
+app.config['SQLALCHEMY_DATABASE_URI'] = connection_string
 db = SQLAlchemy(app)
 
-x = "1772461411:AAGpWy5vDHgvw0lOpqegfV0tY7BUu-XIgQs"
-bot = TeleBot(token=x)
+bot_token = Env().str('bot_token')
+bot = TeleBot(token=bot_token)
 
 class BotUsers(db.Model):
     di = db.Column(db.Integer, primary_key=True)
