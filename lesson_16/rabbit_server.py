@@ -10,6 +10,9 @@ connection = pika.BlockingConnection(pika.ConnectionParameters(
     ))
 channel = connection.channel()
 
+
+channel.queue_declare(queue='Create')
+
 """ Формат JSON:
         {
         "customer":(id клиента - целое число),

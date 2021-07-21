@@ -2,6 +2,27 @@ import datetime
 from models import app, db, Departments, Employees, Customers, Orders
 from flask import request, render_template
 
+import json
+
+import pika
+
+connection = pika.BlockingConnection(pika.ConnectionParameters(
+    'localhost',
+    credentials=pika.PlainCredentials("admin", "password")
+    ))
+channel = connection.channel()
+
+
+channel.queue_declare(queue='Create')
+
+def callback(ch, method, properties, body):
+    a = json.loads(body.decode("utf-8").replace("'", '"'))
+    create_ord_rabbit(a)
+
+
+channel.basic_consume(queue="Create", on_message_callback=callback, auto_ack=True)
+channel.start_consuming()
+
 
 @app.route("/create_dep")
 def create_dep():

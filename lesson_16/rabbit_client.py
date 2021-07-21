@@ -6,7 +6,6 @@ connection = pika.BlockingConnection(
 
 channel = connection.channel()
 
-channel.queue_declare(queue='Create')
 
 
 def send_message(message):
